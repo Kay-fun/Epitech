@@ -5,12 +5,12 @@ Pour faire lancer le jeu :
 
 Cas gerés :
 
-- ouverture propre de la fenêtre;
-- animation du background (parallax mapping);
-- animation du personnage et du monstre;
-- mouvment du monstre;
-- la collision contre le monstre;
-- mouvement de saut du personnage;
+- ouverture propre de la fenêtre
+- animation du background (parallax mapping)
+- animation du personnage et du monstre
+- mouvment du monstre
+- la collision contre le monstre
+- mouvement de saut du personnage
 - menu du début et de fin pour commencer, recommencer ou quitter
-- son d'ambiance in-game;
-- son de fin lorsque c'est perdu;
+- son d'ambiance in-game
+- son de fin lorsque c'est perdu

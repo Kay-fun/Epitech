@@ -1,6 +1,6 @@
 Pour faire lancer le jeu :
-    taper la commande "make re" dans un terminal à la source du dossier
-    ./my_runner et le jeu est lancé
+    - taper la commande "make re" dans un terminal à la source du dossier
+    - ./my_runner et le jeu est lancé
 
 Cas gerés :
 

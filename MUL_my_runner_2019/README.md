@@ -1,11 +1,8 @@
-  
-   EPITECH PROJECT, 2020
-   README
-   File description:
-   README
-  
+Pour faire lancer le jeu :
+    taper la commande "make re" dans un terminal à la source du dossier
+    ./my_runner et le jeu est lancé
 
-cas gerés :
+Cas gerés :
 
 - ouverture propre de la fenêtre;
 - animation du background (parallax mapping);

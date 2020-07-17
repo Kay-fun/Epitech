@@ -1,0 +1,126 @@
+##
+## EPITECH PROJECT, 2019
+## automakefile
+## File description:
+## automakefile
+##
+
+#!/bin/sh
+
+folder=$1
+if [ ! -f $folder ]
+then
+	exit 84
+else
+	IFS=";"
+	nb=0
+	a=0
+	while read line
+		do
+			array=($line)
+		if [[ ${array[0]} == "PROJECT_DIR" ]] ; then
+			makefile_dir=${array[1]}
+		elif [[ ${array[0]} == "SOURCES_DIR" ]] ; then
+			src_dir=${array[1]}
+		elif [[ ${array[0]} == "HEADERS_DIR" ]] ; then
+			headers_directory=${array[1]}
+		elif [[ ${array[0]} == "LIBS_DIR" ]] ; then
+			lib_dir=${array[1]}
+		elif [[ ${array[0]} == "EXEC" ]] ; then
+			binary=${array[1]}
+		elif [[ ${array[0]} == "CC" ]] ; then
+			compil=${array[1]}
+		elif [[ ${array[0]} == "CFLAGS" ]] ; then
+			c_flags=${array[1]}
+		elif [[ ${array[0]} == "LDFLAGS" ]] ; then
+			ld_flags=${array[1]}
+		elif [[ ${array[0]} == "BCK_DIR" ]] ; then
+			back_dir=${array[1]}
+		elif [[ ${array[0]} == "ZIP" ]] ; then
+			zip=${array[1]}
+		elif [[ ${array[0]} == "ZIPFLAGS" ]] ; then
+			zip_flags=${array[1]}
+		elif [[ ${array[0]} == "UNZIP" ]] ; then
+			unzip=${array[1]}
+		elif [[ ${array[0]} == "UNZIPFLAGS" ]] ; then
+			unzip_flags=${array[1]}
+		elif [[ ${array[0]} == "*.c" ]] ; then
+			src[nb]={array[0]}
+			((nb++))
+		fi
+	done < $folder
+	if [ -z $makefile_dir ]
+	then
+		exit 84
+	fi
+	if [ ! -d $makefile_dir/$back_dir ] ; then
+		mkdir "$makefile_dir/$back_dir" ]
+	fi
+	echo 1.0 > $makefile_dir/.version
+	echo -e "##" >> $makefile_dir/Makefile
+	echo -e "## EPITECH PROJECT, 2019" >> $makefile_dir/Makefile
+	echo -e "## makefile created by automakefile" >> $makefile_dir/Makefile
+	echo -e "## File description" >> $makefile_dir/Makefile
+	echo -e "## makefile created by automakefile" >> $makefile_dir/Makefile
+	echo -e "##" >> $makefile_dir/Makefile
+	echo >> $makefile_dir/Makefile
+	if [ ! -z $lib_dir ] ; then
+		echo -e "LIB\t\t\t=\t$lib_dir\t\\" >> $makefile_dir/Makefile
+		echo >> $makefile_dir/Makefile
+	fi
+	echo -e "SRC\t\t\t=\t$src_dir\t\\" >> $makefile_dir/Makefile
+	for ((a = 0; nb - $a; a++))
+	do
+		if [ $a > 0 ] ; then
+			echo -e "\t\t\t$src_dir/${src[$a]} \\" >> makefile_dir/Makefile
+		fi
+	done
+	echo >> $makefile_dir/Makefile
+	echo -e "CC\t\t\t=\t$compil" >> $makefile_dir/Makefile
+	echo >> $makefile_dir/Makefile
+	echo -e "OBJ\t\t\t=\t\$(SRC:.c=.o)" >> $makefile_dir/Makefile
+	echo >> $makefile_dir/Makefile
+	echo -e "RM\t\t\t=\trm -f" >> $makefile_dir/Makefile
+	echo >> $makefile_dir/Makefile
+	echo -e "NAME\t\t=\t$binary" >> $makefile_dir/Makefile
+	echo >> $makefile_dir/Makefile
+	echo -e "CFLAGS\t\t=\t$c_flags" >> $makefile_dir/Makefile
+	echo >> $makefile_dir/Makefile
+	if [ ! -z $ld_flags ] ; then
+		echo -e "LDFLAGS\t\t=\t$ld_flags" >> $makefile_dir/Makefile
+		echo >> $makefile_dir/Makefile
+	fi
+	echo -e "all:\t\$(NAME)" >> $makefile_dir/Makefile
+	echo >> $makefile_dir/Makefile
+	echo -e "\$(NAME):\t\t\$(OBJ)" >> $makefile_dir/Makefile
+	if [ ! -z $ld_flags ] ; then
+		echo -e "\t\t\$(CC) -o \$(NAME) \$(OBJ) \$(LDFLAGS)" >> $makefile_dir/Makefile
+	else
+		echo -e "\t\t\$(CC) -o \$(NAME) \$(OBJ)" >> $makefile_dir/Makefile
+	fi
+	echo >> $makefile_dir/Makefile
+	echo -e "clean:" >> $makefile_dir/Makefile
+	echo -e "\t\$(RM) \$(OBJ)" >> $makefile_dir/Makefile
+	if [ ! -z $lib_dir ] ; then
+		echo -e "\tmake clean -C \$(LIB)" >> $makefile_dir/Makefile
+	fi
+	echo >> $makefile_dir/Makefile
+	echo -e "fclean: clean" >> $makefile_dir/Makefile
+	echo -e "\t\$(RM) \$(NAME)" >> $makefile_dir/Makefile
+	if [ ! -z $lib_dir ] ; then
+		echo -e "\tmake fclean -C \$(LIB)" >> $makefile_dir/Makefile
+	fi
+	echo >> $makefile_dir/Makefile
+	echo -e "re: fclean all" >> $makefile_dir/Makefile
+	echo >> $makefile_dir/Makefile
+	echo -e "archive:\n\t$zip $zip_flags ./$back_dir/backup_$(<$makefile_dir/.version).$zip \$(SRC)\n" >> $makefile_dir/Makefile
+	echo -e "revert:\n\t$unzip $unzip_flags ./$back_dir/backup_$(<$makefile_dir/.version).$zip" >> $makefile_dir/Makefile
+	echo >> $makefile_dir/Makefile
+	echo -e "num:\n\techo \"$(<$makefile_dir/.version)\"" >> $makefile_dir/Makefile
+	echo >> $makefile_dir/Makefile
+	echo -e "delete:\n\t\$(RM) ./$back_dir/backup_$(<$makefile_dir/.version).$zip" >> $makefile_dir/Makefile
+	echo >> $makefile_dir/Makefile
+	echo -e ".PHONY: all clean fclean re archive revert num delete" >> $makefile_dir/Makefile
+
+fi
+exit 0

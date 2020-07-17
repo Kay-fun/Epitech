@@ -1,0 +1,11 @@
+source_filename;main.c bfg.c gzdoom.c
+SOURCES_DIR;src/
+PROJECT_DIR;./fakeproject/
+HEADERS_DIR;include
+EXEC;doom
+CC;gcc
+CFLAGS;-Wall -Wextra -O2
+LDFLAGS; -test
+BCK_DIR;backup
+ZIP;zip
+UNZIP;unzip
